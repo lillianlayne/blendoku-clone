@@ -5,6 +5,8 @@ const darkScndWhite = "#aba29e";
 let boardSolved;
 let board;
 let colorTileSelection;
+let state;
+
 // let bgColor;
 let bgDefaultColor = 'rgba(28,25,23)';
 
@@ -13,13 +15,13 @@ let bgDefaultColor = 'rgba(28,25,23)';
 const gameBoardDiv = document.getElementById("game-board");
 const colorTilesDiv = document.getElementById("color-tiles");
 const gameContainer = document.getElementById("game-container");
-let colorTile;
+
 
 // event listeners 
 
 // gameBoardDiv.addEventListener('click', handlePuzzleBoard);
 // colorTilesDiv.addEventListener('click', handlePuzzleBoard);
-colorTilesDiv.addEventListener('click', handleGetColor);
+gameContainer.addEventListener('click', handleGetColor);
 // gameContainer.addEventListener('click', handleClick);
 
 // render
@@ -41,6 +43,7 @@ function renderBoard() {
       gameBoardTile.style.border = `1px solid ${darkScndWhite}`;
     }
   });
+
 
 }
 
@@ -67,7 +70,7 @@ function renderColorSelectionDiv() {
   
 }
 
-let state = -1;
+
 // event listener functions 
 // function handleClick(event) {
 //     let e = event.target;
@@ -86,19 +89,31 @@ let state = -1;
 
 
 // }
+let previousDiv;
+let previousBgColor;
+let currentDiv;
+let currentBgColor;
 
 function handleGetColor(event) {
     let e = event.target;
-    const bgColor = e.style.background;
-    gameBoardDiv.addEventListener('click', handleFillColor)
-    console.log(bgColor)
     
-    function handleFillColor(event) {
-        event.target.style.background = bgColor;
-        event.target.style.border = "none";
-        e.style.background = 'none'
+    if (state === 1) {
+       previousDiv = e;
+       previousBgColor = e.style.backgroundColor;
+       e.style.border = `1px solid ${darkScndWhite}`
     }
+    
+    if (state === -1) {
+        currentBgColor = e.style.background;
+        e.style.background = previousBgColor;
+        previousDiv.style.background = currentBgColor
+        e.style.border = 'none';
+        previousDiv.style.border = 'none';
+    }
+    
+    state*= -1
 }
+
 
 
 
@@ -128,6 +143,7 @@ function init() {
     [110, 16, 16],
   ];
 
+  state = 1;
   render();
 }
 
