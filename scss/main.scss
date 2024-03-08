@@ -1,0 +1,13 @@
+$dark-black: #1c1917;
+$dark-white: #fafaf9;
+$dark-scnd-white: #aba29e;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background: $dark-black;
+    margin: 0 auto;
+}
