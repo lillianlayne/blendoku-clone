@@ -8,21 +8,22 @@ let colorTileSelection;
 let state;
 
 // let bgColor;
-let bgDefaultColor = "rgba(28,25,23)";
+let bgDefaultColor = 'rgba(28,25,23)';
+
 
 // cahce
 const gameBoardDiv = document.getElementById("game-board");
 const colorTilesDiv = document.getElementById("color-tiles");
 const gameContainer = document.getElementById("game-container");
 
-// event listeners
-gameContainer.addEventListener("click", handleGetColor);
+
+// event listeners 
+gameContainer.addEventListener('click', handleGetColor);
 
 // render
 function render() {
   renderBoard();
   renderColorSelectionDiv();
-  checkSolved()
 }
 
 function renderBoard() {
@@ -32,8 +33,10 @@ function renderBoard() {
     const gameBoardIdx = `c${idx}`;
     const gameBoardTile = document.getElementById(gameBoardIdx);
     gameBoardTile.style.background = colorInTile;
-    gameBoardTile.style.border = "none";
+
   });
+
+
 }
 
 function renderColorSelectionDiv() {
@@ -41,23 +44,26 @@ function renderColorSelectionDiv() {
 
   board.forEach((color, idx) => {
     if (color.includes(28 && 25 && 23)) {
-      colorTileSelection.push(idx);
+        colorTileSelection.push(idx);
     }
   });
 
   colorTileSelection.forEach((color, idx) => {
     const colorTileId = `g${idx}`;
-    const colorFromBoard = boardSolved[color].join(",");
+    const colorFromBoard = boardSolved[color].join(',');
     const backgroundColor = `rgba(${colorFromBoard})`;
-    const tileSelectionDiv = document.createElement("div");
+    const tileSelectionDiv = document.createElement('div');
     tileSelectionDiv.id = colorTileId;
     tileSelectionDiv.style.background = backgroundColor;
-    tileSelectionDiv.classList.add("color-tile");
+    tileSelectionDiv.classList.add('color-tile');
     colorTilesDiv.appendChild(tileSelectionDiv);
-  });
+
+  })
+  
 }
 
-// event listener functions
+
+// event listener functions 
 
 let previousDiv;
 let previousBgColor;
@@ -65,40 +71,25 @@ let currentDiv;
 let currentBgColor;
 
 function handleGetColor(event) {
-  let e = event.target;
-
-  
-
-  if (state === 1) {
-    previousDiv = e;
-    previousBgColor = e.style.backgroundColor;
-    e.style.border = `1px solid ${darkScndWhite}`;
-  }
-
-  if (state === -1) {
-    currentBgColor = e.style.background;
-    e.style.background = previousBgColor;
-    previousDiv.style.background = currentBgColor;
-    e.style.border = "none";
-    previousDiv.style.border = "none";
-  }
-
-  state *= -1;
+    let e = event.target;
+    
+    if (state === 1) {
+       previousDiv = e;
+       previousBgColor = e.style.backgroundColor;
+       e.style.border = `1px solid ${darkScndWhite}`
+    }
+    
+    if (state === -1) {
+        currentBgColor = e.style.background;
+        e.style.background = previousBgColor;
+        previousDiv.style.background = currentBgColor
+        e.style.border = 'none';
+        previousDiv.style.border = 'none';
+    }
+    
+    state*= -1
 }
 
-function checkSolved() {
-  const gameTile = document.querySelectorAll("#game-board > div");
-  let compareArray = [];
-  for (let i = 0; i < gameTile.length; i++) {
-    const rgbExtracted = gameTile[i].style.background;
-    let rgbArr = rgbExtracted.match(/\d+/g);
-     // mdn reference
-    compareArray.push(rgbArr)
-}
-
-
-  
-}
 
 // init
 function init() {
