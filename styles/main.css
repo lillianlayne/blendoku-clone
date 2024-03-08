@@ -6,4 +6,57 @@
 body {
   background: #1c1917;
   margin: 0 auto;
+  height: 100vh;
+}
+
+.padding, .color-tiles {
+  max-width: 500px;
+}
+
+.container {
+  width: 500px;
+  height: 90vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 500px;
+  gap: 8px;
+  width: 100%;
+}
+
+.color-tile {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #aba29e;
+  border-radius: 8px;
+  aspect-ratio: 1/1;
+}
+
+.color-tiles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-top: 45px;
+  position: relative;
+}
+.color-tiles .color-tile {
+  border: none;
+  position: relative;
+}
+.color-tiles .color-tile::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 10%;
+  width: 10%;
+  background: #aba29e;
+  border-radius: 4px;
 }/*# sourceMappingURL=main.css.map */
