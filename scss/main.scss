@@ -21,7 +21,7 @@ body {
   max-width: 500px;
 }
 
-.container {
+.game-container {
     width: 500px;
     height: 90vh;
     position: absolute;
@@ -37,6 +37,7 @@ body {
   height: 500px;
   gap: 8px;
 width: 100%;
+cursor: pointer;
 }
 
 .color-tile {
@@ -52,6 +53,7 @@ width: 100%;
   grid-template-columns: repeat(5, 1fr);
   margin-top: 45px;
   position: relative;
+  cursor: pointer;
 
 .color-tile {
     border: none;
@@ -67,6 +69,7 @@ width: 100%;
     width: 10%;
     background: $dark-scnd-white;
     border-radius: 4px;
+    z-index: -1;
   }
 }
 }
