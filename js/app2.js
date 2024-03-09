@@ -1,124 +1,82 @@
-const darkBlack = "#1c1917";
-const darkWhite = "#fafaf9";
-const darkScndWhite = "#aba29e";
+// states
+let puzzleKey; // stores what the final puzzle should be
+let guessBoard; // stores the puzzle the user has guessed
+let rValues = getRdmValue(245, 47);
+let gValues = getRdmValue(242, 113);
+let bValues = getRdmValue(192, 168);
 
-let boardSolved;
-let board;
-let colorTileSelection;
-let state;
+// game state object
+let gamePlay = {
+  getFill: {
+    state: 1,
+    getFill: function () {
+      // gets the fill of the selected function
+    },
+  },
+  setFill: {
+    state: -1,
+    setFill: function () {
+      // sets the fill of the selected function
+    },
+  },
+};
 
-// let bgColor;
-let bgDefaultColor = 'rgba(28,25,23)';
 
+// render functions 
 
-// cahce
-const gameBoardDiv = document.getElementById("game-board");
-const colorTilesDiv = document.getElementById("color-tiles");
-const gameContainer = document.getElementById("game-container");
+function getRdmValue(startStep, endStep) {
+  const step = Math.floor((startStep - endStep) / 16);
+  const stepArr = [];
+  stepArr.push(startStep);
 
+  for (let i = 0; i < 15; i++) {
+    startStep -= step;
+    stepArr.push(startStep);
+  }
 
-// event listeners 
-gameContainer.addEventListener('click', handleGetColor);
-
-// render
-function render() {
-  renderBoard();
-  renderColorSelectionDiv();
+  return stepArr;
 }
 
-function renderBoard() {
-  board.forEach((color, idx) => {
-    color.join("");
-    const colorInTile = `rgba(${color})`;
-    const gameBoardIdx = `c${idx}`;
-    const gameBoardTile = document.getElementById(gameBoardIdx);
-    gameBoardTile.style.background = colorInTile;
-
-  });
-
-
-}
-
-function renderColorSelectionDiv() {
-  colorTileSelection = [];
-
-  board.forEach((color, idx) => {
-    if (color.includes(28 && 25 && 23)) {
-        colorTileSelection.push(idx);
+function renderPuzzleKey() {
+  for (let i = 0; i < puzzleKey.length; i++) {
+    for (let j = 0; j < puzzleKey[i].length; j++) {
+      puzzleKey[i][j][0] = rValues.shift();
+      puzzleKey[i][j][1] = gValues.shift();
+      puzzleKey[i][j][2] = bValues.shift();
     }
-  });
-
-  colorTileSelection.forEach((color, idx) => {
-    const colorTileId = `g${idx}`;
-    const colorFromBoard = boardSolved[color].join(',');
-    const backgroundColor = `rgba(${colorFromBoard})`;
-    const tileSelectionDiv = document.createElement('div');
-    tileSelectionDiv.id = colorTileId;
-    tileSelectionDiv.style.background = backgroundColor;
-    tileSelectionDiv.classList.add('color-tile');
-    colorTilesDiv.appendChild(tileSelectionDiv);
-
-  })
+  }
   
 }
 
-
-// event listener functions 
-
-let previousDiv;
-let previousBgColor;
-let currentDiv;
-let currentBgColor;
-
-function handleGetColor(event) {
-    let e = event.target;
-    
-    if (state === 1) {
-       previousDiv = e;
-       previousBgColor = e.style.backgroundColor;
-       e.style.border = `1px solid ${darkScndWhite}`
-    }
-    
-    if (state === -1) {
-        currentBgColor = e.style.background;
-        e.style.background = previousBgColor;
-        previousDiv.style.background = currentBgColor
-        e.style.border = 'none';
-        previousDiv.style.border = 'none';
-    }
-    
-    state*= -1
-}
-
-
-// init
 function init() {
-  boardSolved = [
-    [232, 186, 71],
-    [141, 153, 81],
-    [63, 127, 84],
-    [213, 151, 71],
-    [0, 0, 0],
-    [100, 81, 50],
-    [197, 116, 70],
-    [151, 66, 40],
-    [110, 16, 16],
+  puzzleKey = [
+    [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ],
+    [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ], 
+    [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ], 
+    [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ], 
   ];
 
-  board = [
-    [232, 186, 71],
-    [28, 25, 23, 0],
-    [63, 127, 84],
-    [28, 25, 23, 0],
-    [0, 0, 0, 0],
-    [28, 25, 23, 0],
-    [197, 116, 70],
-    [28, 25, 23, 0],
-    [110, 16, 16],
-  ];
-
-  state = 1;
-  render();
+  renderPuzzleKey();
 }
 
 init();
