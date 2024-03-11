@@ -15,7 +15,8 @@ let solved;
 // cache
 const gameBoardDiv = document.getElementById("game-board");
 const guessContainerDiv = document.getElementById("color-tiles");
-const gameBoardTileDiv = document.querySelectorAll("#game-board > div");
+const gameBoardTileDiv = [...document.querySelectorAll("#game-board > div")];
+console.log(gameBoardTileDiv)
 const messageDiv = document.getElementById("message")
 
 // event listeners 
@@ -131,8 +132,18 @@ let fill;
 function handleSelection(event) {
   const e = event.target;
   const currColor = e.style.background;
+  const eTargetId = e.id;
+
+  if (eTargetId === 'game-board' || 
+      e == gameBoardTileDiv[gameKey1] || 
+      e == gameBoardTileDiv[gameKey2] || 
+      e == gameBoardTileDiv[gameKey3] || 
+      e == gameBoardTileDiv[gameKey4] 
+  
+  ) return;
 
   if (gameState === 1) {
+    if (!currColor) return;
     previousClick = e;
     fill = e.style.background;
     e.style.transform = 'scale(.75)'
