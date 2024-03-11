@@ -1,0 +1,64 @@
+@import 'globalVariables';
+
+
+
+.logo {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.instructions {
+    height: 60%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    
+    
+}
+
+.intro-1 {
+    width: 400px;
+    height: 100%;
+    background: #292524;
+    border-radius: 16px;
+
+    @extend .absolute-center;
+ 
+    
+}
+
+.intro-2 {
+    width: 400px;
+    height: 100%;
+    background: #292524;
+    border-radius: 16px;
+    
+    @extend .absolute-center;
+    
+   
+}
+
+.intro-3 {
+    width: 400px;
+    height: 100%;
+    background: #292524;
+    border-radius: 16px;
+
+    @extend .absolute-center;
+    
+}
+
+.arrow {
+    cursor: pointer
+}

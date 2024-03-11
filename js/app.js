@@ -12,36 +12,20 @@ let gameKey3;
 let gameKey4;
 let solved;
 
-
-const gameActions = {
-  getFill: {
-    handleColorDrop: function(event) {
-      previousClick = event;
-
-      event.style.border = '4px solid #1c1917';
-      }
-  }, 
-  setFill: {
-    handleColorDrop: function(event) {
-      event.background = fill;
-      previousClick.style.border = "none";
-    }
-  }
-}
 // cache
 const gameBoardDiv = document.getElementById("game-board");
 const guessContainerDiv = document.getElementById("color-tiles");
 const gameBoardTileDiv = document.querySelectorAll("#game-board > div");
+const messageDiv = document.getElementById("message")
 
 // event listeners 
 document.getElementById('game-container').addEventListener('click', handleSelection);
+
 // render
 function render() {
   renderBoard();
   renderGuessTiles();
   renderControls();
-  getWinner();
-
 }
 
 function renderBoard() {
@@ -70,6 +54,9 @@ function renderGuessTiles() {
   
   }
 
+  function renderControls() {
+   solved ? messageDiv.innerText = "solved!" : messageDiv.innerText = "correctly place all the color tiles to solve"
+  }
 
 // functions to set up puzzle colors
 function getRdmValue(startStep, endStep) {
@@ -121,9 +108,12 @@ for (let i = 0; i < tileDivArr.length; i++) {
   }  puzzState += 0
 }
 
-if (puzzState === puzzKeyArr.length) {
-  solved = true
-} solved = false;
+if (puzzState < puzzGuessArr.length) {
+  solved = false
+} else {
+  solved = true;
+}
+console.log(puzzState, puzzKeyArr.length, solved)
 
 }
 
@@ -150,11 +140,8 @@ function handleSelection(event) {
     previousClick.style.background = currColor;
     e.style.background = fill;
     previousClick.style.transform = 'scale(1)';
-
-    
-
   }
-  console.log(fill)
+ getWinner();
   gameState *= -1
 }
 
@@ -205,9 +192,9 @@ function init() {
       [],
       key4, 
   ];
-
-  render();
+  solved = false;
   gameState = 1;
+  render();
 }
 
 init();

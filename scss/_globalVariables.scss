@@ -1,0 +1,22 @@
+$dark-black: #1c1917;
+$dark-white: #fafaf9;
+$dark-scnd-white: #aba29e;
+
+.flex-ctr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.padding {
+  max-width: 500px;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

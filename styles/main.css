@@ -1,14 +1,19 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
+.flex-ctr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-body {
-  background: #1c1917;
-  margin: 0 auto;
-  height: 100vh;
-  font-family: "Monserrat", sans-serif;
-  color: #aba29e;
+.padding, .color-tiles {
+  max-width: 500px;
+}
+
+.absolute-center, .intro-3, .intro-2, .intro-1, .game-tile::before, #game-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .flex-ctr {
@@ -22,7 +27,7 @@ body {
   max-width: 500px;
 }
 
-.absolute-center, .game-tile::before, #game-container {
+.absolute-center, .intro-3, .intro-2, .intro-1, .game-tile::before, #game-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -99,4 +104,88 @@ nav {
 
 .message {
   text-align: center;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flex-ctr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.padding, .color-tiles {
+  max-width: 500px;
+}
+
+.absolute-center, .intro-3, .intro-2, .intro-1, #game-container, .game-tile::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 30px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.instructions {
+  height: 60%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.intro-1 {
+  width: 400px;
+  height: 100%;
+  background: #292524;
+  border-radius: 16px;
+}
+
+.intro-2 {
+  width: 400px;
+  height: 100%;
+  background: #292524;
+  border-radius: 16px;
+}
+
+.intro-3 {
+  width: 400px;
+  height: 100%;
+  background: #292524;
+  border-radius: 16px;
+}
+
+.arrow {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: #1c1917;
+  margin: 0 auto;
+  height: 100vh;
+  font-family: "Monserrat", sans-serif;
+  color: #aba29e;
 }/*# sourceMappingURL=main.css.map */
