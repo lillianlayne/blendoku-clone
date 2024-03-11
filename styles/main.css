@@ -48,6 +48,11 @@ nav {
   width: 500px;
 }
 
+.game-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .game-board {
   display: grid;
   width: 100%;
@@ -109,6 +114,10 @@ nav {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+}
+
+#reset {
+  margin-top: 10%;
 }
 
 .flex-ctr {

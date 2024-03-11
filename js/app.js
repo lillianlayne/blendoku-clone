@@ -138,7 +138,8 @@ function handleSelection(event) {
       e == gameBoardTileDiv[gameKey1] || 
       e == gameBoardTileDiv[gameKey2] || 
       e == gameBoardTileDiv[gameKey3] || 
-      e == gameBoardTileDiv[gameKey4] 
+      e == gameBoardTileDiv[gameKey4] ||
+      eTargetId === 'color-tiles'
   
   ) return;
 
