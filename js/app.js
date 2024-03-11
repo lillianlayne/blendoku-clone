@@ -55,7 +55,9 @@ function renderGuessTiles() {
   }
 
   function renderControls() {
-   solved ? messageDiv.innerText = "solved!" : messageDiv.innerText = "correctly place all the color tiles to solve"
+    getWinner()
+
+   solved === true ? messageDiv.innerText = "solved!" : messageDiv.innerText = "correctly place all the color tiles to solve"
   }
 
 // functions to set up puzzle colors
@@ -111,7 +113,7 @@ for (let i = 0; i < tileDivArr.length; i++) {
 if (puzzState < puzzGuessArr.length) {
   solved = false
 } else {
-  solved = true;
+  messageDiv.innerText = 'Solved'
 }
 console.log(puzzState, puzzKeyArr.length, solved)
 
@@ -192,7 +194,7 @@ function init() {
       [],
       key4, 
   ];
-  solved = false;
+  solved = getWinner();
   gameState = 1;
   render();
 }
