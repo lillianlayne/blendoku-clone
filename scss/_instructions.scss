@@ -32,7 +32,7 @@
     height: 100%;
     background: #292524;
     border-radius: 16px;
-
+display: flex;
     @extend .absolute-center;
  
     
@@ -43,7 +43,8 @@
     height: 100%;
     background: #292524;
     border-radius: 16px;
-    
+    display: flex;
+
     @extend .absolute-center;
     
    
@@ -54,11 +55,19 @@
     height: 100%;
     background: #292524;
     border-radius: 16px;
+    display: flex;
 
     @extend .absolute-center;
     
 }
 
 .arrow {
-    cursor: pointer
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.hide {
+    display: none;
 }
