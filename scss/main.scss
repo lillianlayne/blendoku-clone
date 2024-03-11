@@ -73,16 +73,18 @@ nav {
   width: 100%;
   border-radius: 8px;
   position: relative;
+  background: none;
+  
 
   &::before {
     content: "";
-    height: 80%;
-    width: 80%;
-    position: absolute;
+    height: 50%;
+    width: 50%;
+
     @extend .absolute-center;
     border: 1px solid $dark-scnd-white;
     border-radius: 8px;
-    z-index: -1;
+    z-index: -99;
   }
 }
 
@@ -112,6 +114,10 @@ nav {
     width: 10%;
     border-radius: 2px;
     background: $dark-scnd-white;
-    z-index: -1;
+    z-index: -99;
   }
+}
+
+.message {
+  text-align: center
 }
