@@ -143,6 +143,7 @@ nav {
   background: $dark-light-grey;
   border-radius: 100%;
   padding: 1vmin;
+  cursor: pointer;
   
   @extend .flex-ctr;
   svg {

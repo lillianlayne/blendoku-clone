@@ -19,11 +19,13 @@ const colorBankDiv = document.getElementById("color-tiles");
 const msgDiv = document.getElementById("message");
 const resetBtn = document.getElementById("reset");
 const clickCountDiv = document.getElementById("click-data");
+const refreshBtn = document.getElementById('refresh-board');
 let puzzDivArr;
 let bankDivArr;
 
 // event listeners
 puzzContainer.addEventListener('click', handleGameActions);
+
 // initialize game ------------------------------------------------
 init();
 
@@ -46,7 +48,6 @@ function init(level) {
 }
 
 // event listener functions
-
 function handleGameActions(evt) {
     let e = evt.target;
     let eTargetId = e.id;
@@ -78,10 +79,17 @@ function handleGameActions(evt) {
     
   
     gameState *= -1;
-
+    checkSolved();
 }
 
+function checkSolved() {
+  const filledDivs = puzzDivArr.map((div) => {
+    return div.style.background
+  })
 
+
+  console.log(guessBankVals)
+}
 // color generation functions ------------------------------------------------
 // combines values into rgb matrix
 function getPuzzKey(level) {
@@ -122,20 +130,6 @@ function initColor(level) {
 
   return valArr;
 }
-
-// gets the initial vals of the array
-// function getVals(level) {
-//     let start = Math.floor(Math.random() * (255 - 50)) + 60;
-//     const valArray = [start];
-//       step = 10;
-//     for (let i = 0; i < level; i++) {
-//       valArray.push(start - step);
-//       start = start - step;
-//       step = step + i ** i;
-//     }
-
-//     return valArray;
-//   }
 
 function getVals(level) {
   let start = Math.floor(Math.random() * (255 - 50)) + 60;
@@ -215,6 +209,10 @@ function initPuzzBoard() {
   return puzzBoardTiles;
 }
 
+function convertToRgb(arr) {
+ 
+}
+
 function convertToRgbVal(arr) {
   const color = arr.map((elem) => {
     return `rgb(${elem})`;
@@ -241,7 +239,6 @@ function renderGuessTiles() {
   });
 
 }
-// actual game function -------------------------------------------------
 function renderGameBoard() {
   puzzBoard.forEach((color, idx) => {
     const puzzBoardDiv = document.createElement("div");
@@ -252,19 +249,16 @@ function renderGameBoard() {
       puzzBoardDiv.style.background = "none";
     }
   });
+
+  const keyArr = [key1, key2, key3, key4];
+  keyArr.forEach((val) => {
+    const puzzKeyString = convertToRgbVal(puzzKey);
+    const keyDivId = `c${val}`;
+    const keyDiv = document.getElementById(keyDivId);
+    keyDiv.style.background = puzzKeyString[val];
+  });
 }
 
-// grident test function ----------------------------------------------
-// function renderGameBoard() {
-//     const boardTiles = convertToRgbVal(puzzKey);
-
-//    boardTiles.forEach((color) => {
-//     const guessBankTile = document.createElement('div');
-//     guessBankTile.classList.add('game-tile');
-//     guessBankTile.style.background = color;
-//     gameBoardDiv.appendChild(guessBankTile);
-//    })
-// }
 function renderLevelSetUp() {
   let gridSize = Math.sqrt(puzzKey.length);
   let tmpltGrid = `repeat(${gridSize}, 1fr)`;
@@ -274,14 +268,6 @@ function renderLevelSetUp() {
 
   renderGuessTiles();
   renderGameBoard();
-
-  const keyArr = [key1, key2, key3, key4];
-  keyArr.forEach((val) => {
-    const puzzKeyString = convertToRgbVal(puzzKey);
-    const keyDivId = `c${val}`;
-    const keyDiv = document.getElementById(keyDivId);
-    keyDiv.style.background = puzzKeyString[val];
-  });
 
   puzzDivArr = [...document.querySelectorAll('#game-board > div')];
 }

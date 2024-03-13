@@ -160,6 +160,7 @@ nav {
   background: #292524;
   border-radius: 100%;
   padding: 1vmin;
+  cursor: pointer;
 }
 .refresh-board svg {
   height: 2vmin;
