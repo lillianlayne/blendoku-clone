@@ -75,6 +75,34 @@ function initColor(level) {
   return valArr;
 }
 
+// gets the initial vals of the array 
+// function getVals(level) {
+//     let start = Math.floor(Math.random() * (255 - 50)) + 60; 
+//     const valArray = [start];
+//       step = 10;
+//     for (let i = 0; i < level; i++) {
+//       valArray.push(start - step);
+//       start = start - step;
+//       step = step + i ** i;
+//     }
+  
+//     return valArray;
+//   }
+  
+function getVals(level) {
+    let start = Math.floor(Math.random() * (255 - 50)) + 60; 
+    const end = Math.floor(Math.random() * (start - 0) + 1);
+    const valArray = [start];
+    let step = Math.floor((start - end) / level);
+   
+    for (let i = 0; i < level; i++) {
+      valArray.push(start - step);
+      start = start - step;
+    }
+    
+    return valArray;
+}
+
 // gets the r,g, or b value in between the start and finish
 function getBtwnVals(start, end, level) {
   let valStart = start;
@@ -128,19 +156,6 @@ function initPuzzBoard() {
     return puzzBoardTiles
 }
 
-function getVals(level) {
-  let start = Math.floor(Math.random() * (255 - 50)) + 50; 
-  const valArray = [start];
-    step = 10;
-  for (let i = 0; i < level; i++) {
-    valArray.push(start - step);
-    start = start - step;
-    step = step + 8;
-  }
-
-  return valArray;
-}
-
 function convertToRgbVal(arr) {
     const color = arr.map((elem) => {
         return `rgb(${elem})`
@@ -149,10 +164,10 @@ function convertToRgbVal(arr) {
     return color
 }
 
-// render functions ------------------------------------------------
+// render DOM functions ------------------------------------------------
 function render() {
   renderLevelSetUp();
-
+  renderControls();
 }
 
 function renderGuessTiles() {
@@ -167,7 +182,7 @@ function renderGuessTiles() {
    })
     
 }
-
+// actual game function -------------------------------------------------
 function renderGameBoard() {
     puzzBoard.forEach((color, idx) => {
         const puzzBoardDiv = document.createElement('div');
@@ -178,10 +193,19 @@ function renderGameBoard() {
             puzzBoardDiv.style.background = 'none';
         } 
     })
-
-   
 }
 
+// grident test function ----------------------------------------------
+// function renderGameBoard() {
+//     const boardTiles = convertToRgbVal(puzzKey);
+
+//    boardTiles.forEach((color) => {
+//     const guessBankTile = document.createElement('div');
+//     guessBankTile.classList.add('game-tile');
+//     guessBankTile.style.background = color;
+//     gameBoardDiv.appendChild(guessBankTile); 
+//    })
+// }
 function renderLevelSetUp() {
   let gridSize = Math.sqrt(puzzKey.length);
   let tmpltGrid = `repeat(${gridSize}, 1fr)`;
@@ -193,15 +217,17 @@ function renderLevelSetUp() {
   renderGameBoard();
 
   const keyArr = [key1, key2, key3, key4];
-
-  keyArr.forEach((val, idx) => {
+  keyArr.forEach((val) => {
+      console.log(val)
     const puzzKeyString = convertToRgbVal(puzzKey);
     const keyDivId = `c${val}`;
     const keyDiv = document.getElementById(keyDivId);
     keyDiv.style.background = puzzKeyString[val]
   })
 
-
 }
 
-
+function renderControls() {
+    gameState ? resetBtn.style.visibility = 'visibile' : resetBtn.style.visibility = 'hidden';
+    gameState ? msgDiv.innerText = 'nice' : msgDiv.innerText = 'Correctly place all color tiles to solve the puzzle'
+}
