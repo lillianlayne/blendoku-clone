@@ -37,15 +37,25 @@
 nav {
   display: flex;
   justify-content: space-between;
-  width: 500px;
+  width: 400px;
   margin: 0 auto;
   margin-top: 30px;
   font-size: 12px;
   letter-spacing: 0.5px;
 }
+@media only screen and (max-width: 450px) {
+  nav {
+    width: 300px;
+  }
+}
 
 #game-container {
-  width: 500px;
+  width: 400px;
+}
+@media only screen and (max-width: 450px) {
+  #game-container {
+    width: 300px;
+  }
 }
 
 .game-container {
@@ -56,12 +66,17 @@ nav {
 #game-board {
   display: grid;
   width: 100%;
-  height: 500px;
+  height: 400px;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   cursor: pointer;
   margin-top: 5vmin;
+}
+@media only screen and (max-width: 450px) {
+  #game-board {
+    height: 300px;
+  }
 }
 
 .game-tile {
@@ -111,7 +126,6 @@ nav {
 
 .message {
   text-align: center;
-  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -119,15 +133,14 @@ nav {
 }
 
 #reset {
-  height: 6vmin;
-  width: 20vmin;
+  padding: 4vmin 12vmin;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 500px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: bold;
   border-width: 1px;
-  background: radial-gradient(107.32% 141.42% at 0% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+  background: #aba29e;
 }
 
 .flex-ctr {
