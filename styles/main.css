@@ -1,4 +1,4 @@
-.flex-ctr {
+.flex-ctr, .refresh-board {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@
   transform: translate(-50%, -50%);
 }
 
-.flex-ctr {
+.flex-ctr, .refresh-board {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +71,7 @@ nav {
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   cursor: pointer;
+  place-items: center;
   margin-top: 5vmin;
 }
 @media only screen and (max-width: 450px) {
@@ -101,7 +102,7 @@ nav {
   margin-top: 45px;
   position: relative;
   cursor: pointer;
-  margin-bottom: 8vmin;
+  place-items: center;
 }
 
 .color-tile {
@@ -143,7 +144,29 @@ nav {
   background: #aba29e;
 }
 
-.flex-ctr {
+.user-controls {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  color: #aba29e;
+  margin: 1.5vmin 0 8vmin 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  align-items: flex-end;
+}
+
+.refresh-board {
+  background: #292524;
+  border-radius: 100%;
+  padding: 1vmin;
+}
+.refresh-board svg {
+  height: 2vmin;
+  width: 2vmin;
+}
+
+.flex-ctr, .refresh-board {
   display: flex;
   align-items: center;
   justify-content: center;

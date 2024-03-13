@@ -40,6 +40,7 @@ nav {
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   cursor: pointer;
+  place-items: center;
   margin-top: 5vmin;
   @media only screen and (max-width: 450px) {
     height: 300px
@@ -76,7 +77,8 @@ nav {
   margin-top: 45px;
   position: relative;
   cursor: pointer;
-  margin-bottom: 8vmin;
+  place-items: center;
+ 
 }
 
 .color-tile {
@@ -85,6 +87,7 @@ nav {
   border-radius: 8px;
   aspect-ratio: 1 / 1;
   position: relative;
+ 
 
   &::before {
     content: "";
@@ -120,4 +123,30 @@ nav {
   border-width: 1px;
   background: $dark-scnd-white
   
+}
+
+.user-controls {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  color: $dark-scnd-white;
+  margin: 1.5vmin 0 8vmin 0;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 14px;
+  align-items: flex-end;
+
+
+}
+
+.refresh-board {
+  background: $dark-light-grey;
+  border-radius: 100%;
+  padding: 1vmin;
+  
+  @extend .flex-ctr;
+  svg {
+    height: 2vmin;
+    width: 2vmin
+  }
 }

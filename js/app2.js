@@ -1,5 +1,5 @@
 let level;
-let gameState; 
+let isSolved;
 let puzzKey;
 let guessBankVals;
 let puzzBoard;
@@ -7,13 +7,23 @@ let key1;
 let key2;
 let key3;
 let key4;
+let clickCount;
+let gameState;
+let getFill;
+let prevClick;
 
 // cache ------------------------------------------------
+const puzzContainer = document.getElementById("puzz-container");
 const gameBoardDiv = document.getElementById("game-board");
 const colorBankDiv = document.getElementById("color-tiles");
 const msgDiv = document.getElementById("message");
 const resetBtn = document.getElementById("reset");
+const clickCountDiv = document.getElementById("click-data");
+let puzzDivArr;
+let bankDivArr;
 
+// event listeners
+puzzContainer.addEventListener('click', handleGameActions);
 // initialize game ------------------------------------------------
 init();
 
@@ -29,10 +39,48 @@ function init(level) {
   guessBankVals = getGuessBank();
   puzzBoard = initPuzzBoard();
 
-  console.log(puzzBoard, guessBankVals)
-  gameState = false;
+  gameState = 1;
+  isSolved = false;
+  clickCount = 0;
   render(level);
 }
+
+// event listener functions
+
+function handleGameActions(evt) {
+    let e = evt.target;
+    let eTargetId = e.id;
+    
+    if (e === puzzDivArr[key1] ||
+        e === puzzDivArr[key2] ||
+        e === puzzDivArr[key3] ||
+        e === puzzDivArr[key4] ||
+        eTargetId === 'game-board' ||
+        eTargetId === 'color-tiles') {
+        return
+    }
+
+    if (gameState === 1) {
+        if (e.style.background === 'none') return;
+        prevClick = e;
+        getFill = e.style.background;
+        e.style.width = '80%';
+        e.style.height = '80%';
+    }
+    if (gameState === -1) {
+        console.log(getFill)
+        prevClick.style.background = e.style.background
+        e.style.background = getFill;
+        prevClick.style.width = '100%';
+        prevClick.style.height = '100%';
+
+    }
+    
+  
+    gameState *= -1;
+
+}
+
 
 // color generation functions ------------------------------------------------
 // combines values into rgb matrix
@@ -75,9 +123,9 @@ function initColor(level) {
   return valArr;
 }
 
-// gets the initial vals of the array 
+// gets the initial vals of the array
 // function getVals(level) {
-//     let start = Math.floor(Math.random() * (255 - 50)) + 60; 
+//     let start = Math.floor(Math.random() * (255 - 50)) + 60;
 //     const valArray = [start];
 //       step = 10;
 //     for (let i = 0; i < level; i++) {
@@ -85,22 +133,22 @@ function initColor(level) {
 //       start = start - step;
 //       step = step + i ** i;
 //     }
-  
+
 //     return valArray;
 //   }
-  
+
 function getVals(level) {
-    let start = Math.floor(Math.random() * (255 - 50)) + 60; 
-    const end = Math.floor(Math.random() * (start - 0) + 1);
-    const valArray = [start];
-    let step = Math.floor((start - end) / level);
-   
-    for (let i = 0; i < level; i++) {
-      valArray.push(start - step);
-      start = start - step;
-    }
-    
-    return valArray;
+  let start = Math.floor(Math.random() * (255 - 50)) + 60;
+  const end = Math.floor(Math.random() * (start - 0) + 1);
+  const valArray = [start];
+  let step = Math.floor((start - end) / level);
+
+  for (let i = 0; i < level; i++) {
+    valArray.push(start - step);
+    start = start - step;
+  }
+
+  return valArray;
 }
 
 // gets the r,g, or b value in between the start and finish
@@ -132,36 +180,47 @@ function getBtwnVals(start, end, level) {
 
 // set up game data ------------------------------------------------
 function getGuessBank() {
-    const guessTileArr = puzzKey.map((color) => {
-        if (color === puzzKey[key1] || color === puzzKey[key2] || color === puzzKey[key3] || color === puzzKey[key4]) {
-            return 0
-        } return color
+  const guessTileArr = puzzKey.map((color) => {
+    if (
+      color === puzzKey[key1] ||
+      color === puzzKey[key2] ||
+      color === puzzKey[key3] ||
+      color === puzzKey[key4]
+    ) {
+      return 0;
+    }
+    return color;
+  });
 
-    }) 
+  const filteredGuessTiles = guessTileArr.filter((val, idx) => {
+    return val !== 0;
+  });
 
-    const filteredGuessTiles = guessTileArr.filter((val, idx) => {
-        return val !== 0;
-    })
-
-   return filteredGuessTiles
+  return filteredGuessTiles;
 }
 
 function initPuzzBoard() {
-    const puzzBoardTiles = puzzKey.map((color) => {
-        if (color === puzzKey[key1] || color === puzzKey[key2] || color === puzzKey[key3] || color === puzzKey[key4]) {
-            return color
-        } return color = 'none'
-    })
+  const puzzBoardTiles = puzzKey.map((color) => {
+    if (
+      color === puzzKey[key1] ||
+      color === puzzKey[key2] ||
+      color === puzzKey[key3] ||
+      color === puzzKey[key4]
+    ) {
+      return color;
+    }
+    return (color = "none");
+  });
 
-    return puzzBoardTiles
+  return puzzBoardTiles;
 }
 
 function convertToRgbVal(arr) {
-    const color = arr.map((elem) => {
-        return `rgb(${elem})`
-    })
+  const color = arr.map((elem) => {
+    return `rgb(${elem})`;
+  });
 
-    return color
+  return color;
 }
 
 // render DOM functions ------------------------------------------------
@@ -171,28 +230,28 @@ function render() {
 }
 
 function renderGuessTiles() {
-    const guessTileColorArr = convertToRgbVal(guessBankVals);
-    const randomize = guessTileColorArr.sort((a,b) => .5 - Math.random())
+  const guessTileColorArr = convertToRgbVal(guessBankVals);
+  const randomize = guessTileColorArr.sort((a, b) => 0.5 - Math.random());
 
-   randomize.forEach((color) => {
-    const guessBankTile = document.createElement('div');
-    guessBankTile.classList.add('color-tile');
+  randomize.forEach((color) => {
+    const guessBankTile = document.createElement("div");
+    guessBankTile.classList.add("color-tile");
     guessBankTile.style.background = color;
-    colorBankDiv.appendChild(guessBankTile); 
-   })
-    
+    colorBankDiv.appendChild(guessBankTile);
+  });
+
 }
 // actual game function -------------------------------------------------
 function renderGameBoard() {
-    puzzBoard.forEach((color, idx) => {
-        const puzzBoardDiv = document.createElement('div');
-        puzzBoardDiv.classList.add('game-tile');
-        puzzBoardDiv.id = `c${idx}`
-        gameBoardDiv.appendChild(puzzBoardDiv)
-        if (color === 'none') {
-            puzzBoardDiv.style.background = 'none';
-        } 
-    })
+  puzzBoard.forEach((color, idx) => {
+    const puzzBoardDiv = document.createElement("div");
+    puzzBoardDiv.classList.add("game-tile");
+    puzzBoardDiv.id = `c${idx}`;
+    gameBoardDiv.appendChild(puzzBoardDiv);
+    if (color === "none") {
+      puzzBoardDiv.style.background = "none";
+    }
+  });
 }
 
 // grident test function ----------------------------------------------
@@ -203,7 +262,7 @@ function renderGameBoard() {
 //     const guessBankTile = document.createElement('div');
 //     guessBankTile.classList.add('game-tile');
 //     guessBankTile.style.background = color;
-//     gameBoardDiv.appendChild(guessBankTile); 
+//     gameBoardDiv.appendChild(guessBankTile);
 //    })
 // }
 function renderLevelSetUp() {
@@ -218,16 +277,21 @@ function renderLevelSetUp() {
 
   const keyArr = [key1, key2, key3, key4];
   keyArr.forEach((val) => {
-      console.log(val)
     const puzzKeyString = convertToRgbVal(puzzKey);
     const keyDivId = `c${val}`;
     const keyDiv = document.getElementById(keyDivId);
-    keyDiv.style.background = puzzKeyString[val]
-  })
+    keyDiv.style.background = puzzKeyString[val];
+  });
 
+  puzzDivArr = [...document.querySelectorAll('#game-board > div')];
 }
 
 function renderControls() {
-    gameState ? resetBtn.style.visibility = 'visibile' : resetBtn.style.visibility = 'hidden';
-    gameState ? msgDiv.innerText = 'nice' : msgDiv.innerText = 'Correctly place all color tiles to solve the puzzle'
+  isSolved
+    ? (resetBtn.style.visibility = "visibile")
+    : (resetBtn.style.visibility = "hidden");
+  isSolved
+    ? (msgDiv.innerText = "nice")
+    : (msgDiv.innerText =
+        "Correctly place all color tiles to solve the puzzle");
 }
