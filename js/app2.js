@@ -30,7 +30,7 @@ puzzContainer.addEventListener('click', handleGameActions);
 init();
 
 function init(level) {
-  level = 3;
+  level = 2;
 
   key1 = 0;
   key2 = level;
@@ -83,12 +83,34 @@ function handleGameActions(evt) {
 }
 
 function checkSolved() {
+  let solveCount = 0;
+  
   const filledDivs = puzzDivArr.map((div) => {
-    return div.style.background
+    let bgColor =  div.style.background;
+    bgColor = bgColor.replace(/\s/g, '');
+    return bgColor
   })
 
+  const convertkey = convertToRgbVal(puzzKey);
 
-  console.log(guessBankVals)
+  for (let i = 0; i < convertkey.length; i++) {
+    if (filledDivs[i] === convertkey[i]) {
+      solveCount += 1;
+    } else {
+      solveCount += 0;
+    }
+  }
+ 
+ if (solveCount < convertkey.length) {
+  isSolved = false;
+ } else {
+  isSolved = true;
+ }
+
+ renderControls();
+ console.log(solveCount, convertkey.length, isSolved)
+
+
 }
 // color generation functions ------------------------------------------------
 // combines values into rgb matrix
@@ -209,10 +231,6 @@ function initPuzzBoard() {
   return puzzBoardTiles;
 }
 
-function convertToRgb(arr) {
- 
-}
-
 function convertToRgbVal(arr) {
   const color = arr.map((elem) => {
     return `rgb(${elem})`;
@@ -273,11 +291,16 @@ function renderLevelSetUp() {
 }
 
 function renderControls() {
-  isSolved
-    ? (resetBtn.style.visibility = "visibile")
-    : (resetBtn.style.visibility = "hidden");
-  isSolved
-    ? (msgDiv.innerText = "nice")
-    : (msgDiv.innerText =
-        "Correctly place all color tiles to solve the puzzle");
+  
+  if (isSolved) {
+    msgDiv.innerText = 'nice';
+    resetBtn.style.visibility = 'visible';
+  }
+
+  if (!isSolved) {
+    msgDiv.innerText = 'Correctly place all color tiles on the color board';
+    resetBtn.style.visibility = 'hidden';
+  }
+
+
 }
