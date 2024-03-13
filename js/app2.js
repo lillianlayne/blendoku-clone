@@ -1,38 +1,40 @@
 let level;
-let gameState; // solved or unsolved (1, -1)
-let puzzBoard; // dom gameBoard
+let gameState; 
 let puzzKey;
+let guessBankVals;
+let puzzBoard;
 let key1;
 let key2;
 let key3;
 let key4;
 
-// cache
+// cache ------------------------------------------------
 const gameBoardDiv = document.getElementById("game-board");
 const colorBankDiv = document.getElementById("color-tiles");
 const msgDiv = document.getElementById("message");
 const resetBtn = document.getElementById("reset");
 
-// initialize game
+// initialize game ------------------------------------------------
 init();
 
 function init(level) {
-  level =2;
+  level = 3;
 
-key1 = 0;
-key2 = level;
-key4 = ((level + 1) * ((level + 1))) -1;
-key3 = key4 - level;
-
-
-console.log(key1, key2, key3, key4)
+  key1 = 0;
+  key2 = level;
+  key4 = (level + 1) * (level + 1) - 1;
+  key3 = key4 - level;
 
   puzzKey = getPuzzKey(level);
+  guessBankVals = getGuessBank();
+  puzzBoard = initPuzzBoard();
+
+  console.log(puzzBoard, guessBankVals)
   gameState = false;
   render(level);
 }
 
-// color generation functions
+// color generation functions ------------------------------------------------
 // combines values into rgb matrix
 function getPuzzKey(level) {
   const rVals = initColor(level);
@@ -99,12 +101,37 @@ function getBtwnVals(start, end, level) {
 
   return valArr;
 }
-// gets an array of nums for a r, g, or b to initialize the rest
-function getVals(level) {
-  let start = Math.floor(Math.random() * (255 - 50)) + 50; // Math.floor(Math.random() * (maxNum - minNum that can be thrown)) + minNum rebalance
-  let step = 10; // (startNum / 10 [to make sure the number 2 digits]) + 30 (so the num is higher than 30)
-  const valArray = [start];
 
+// set up game data ------------------------------------------------
+function getGuessBank() {
+    const guessTileArr = puzzKey.map((color) => {
+        if (color === puzzKey[key1] || color === puzzKey[key2] || color === puzzKey[key3] || color === puzzKey[key4]) {
+            return 0
+        } return color
+
+    }) 
+
+    const filteredGuessTiles = guessTileArr.filter((val, idx) => {
+        return val !== 0;
+    })
+
+   return filteredGuessTiles
+}
+
+function initPuzzBoard() {
+    const puzzBoardTiles = puzzKey.map((color) => {
+        if (color === puzzKey[key1] || color === puzzKey[key2] || color === puzzKey[key3] || color === puzzKey[key4]) {
+            return color
+        } return color = 'none'
+    })
+
+    return puzzBoardTiles
+}
+
+function getVals(level) {
+  let start = Math.floor(Math.random() * (255 - 50)) + 50; 
+  const valArray = [start];
+    step = 10;
   for (let i = 0; i < level; i++) {
     valArray.push(start - step);
     start = start - step;
@@ -114,53 +141,67 @@ function getVals(level) {
   return valArray;
 }
 
-// render functions
-function render(level) {
-  renderLevelSetUp(level);
-  // const test = initColor();
-  // console.log(test)
+function convertToRgbVal(arr) {
+    const color = arr.map((elem) => {
+        return `rgb(${elem})`
+    })
+
+    return color
 }
 
-function renderLevelSetUp(level) {
+// render functions ------------------------------------------------
+function render() {
+  renderLevelSetUp();
+
+}
+
+function renderGuessTiles() {
+    const guessTileColorArr = convertToRgbVal(guessBankVals);
+    const randomize = guessTileColorArr.sort((a,b) => .5 - Math.random())
+
+   randomize.forEach((color) => {
+    const guessBankTile = document.createElement('div');
+    guessBankTile.classList.add('color-tile');
+    guessBankTile.style.background = color;
+    colorBankDiv.appendChild(guessBankTile); 
+   })
+    
+}
+
+function renderGameBoard() {
+    puzzBoard.forEach((color, idx) => {
+        const puzzBoardDiv = document.createElement('div');
+        puzzBoardDiv.classList.add('game-tile');
+        puzzBoardDiv.id = `c${idx}`
+        gameBoardDiv.appendChild(puzzBoardDiv)
+        if (color === 'none') {
+            puzzBoardDiv.style.background = 'none';
+        } 
+    })
+
+   
+}
+
+function renderLevelSetUp() {
   let gridSize = Math.sqrt(puzzKey.length);
   let tmpltGrid = `repeat(${gridSize}, 1fr)`;
-  
+
   gameBoardDiv.style.gridTemplateColumns = tmpltGrid;
   gameBoardDiv.style.gridTemplateRows = tmpltGrid;
 
-  let bgColor = puzzKey.map((elem) => {
-    return `rgb(${elem})`;
-  });
+  renderGuessTiles();
+  renderGameBoard();
 
-  for (let i = 0; i < bgColor.length; i++) {
-    const gameTileDiv = document.createElement("div");
-    gameTileDiv.classList.add("game-tile");
-    gameTileDiv.id = `c${i}`
+  const keyArr = [key1, key2, key3, key4];
 
-    gameBoardDiv.appendChild(gameTileDiv);
-  }
-
-
- 
+  keyArr.forEach((val, idx) => {
+    const puzzKeyString = convertToRgbVal(puzzKey);
+    const keyDivId = `c${val}`;
+    const keyDiv = document.getElementById(keyDivId);
+    keyDiv.style.background = puzzKeyString[val]
+  })
 
 
-
-  const rdmCbankArr = bgColor.sort((a, b) => 0.5 - Math.random());
-
-  for (let j = 0; j < bgColor.length; j++) {
-    const cbankTileDiv = document.createElement("div");
-    cbankTileDiv.classList.add("color-tile");
-    cbankTileDiv.style.background = rdmCbankArr[j];
-    colorBankDiv.appendChild(cbankTileDiv);
-  }
-
-  renderGameKeys(bgColor, key1)
-  renderGameKeys(bgColor, key2)
-  renderGameKeys(bgColor, key3)
-  renderGameKeys(bgColor, key4)
 }
 
-function renderGameKeys(arr, key) {
-    const keyId = `c${key}`
-    document.getElementById(keyId).style.background = arr[key];
-}
+
