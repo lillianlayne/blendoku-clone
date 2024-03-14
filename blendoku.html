@@ -33,6 +33,17 @@
     </nav>
     <div class="game-container" id="game-container">
       <div class="message" id="message"></div>
+      <div class="button-container" id="level-btns-game">
+<h3 class="title">play again?</h3>
+<div class="buttons">
+
+
+  <button onclick="startNewLevel(2)" class="level" id="l2">easy</button>
+  <button onclick="startNewLevel(3)" class="level" id="l3">medium</button>
+  <button onclick="startNewLevel(4)" class="level" id="l4">hard</button>
+  <button onclick="startNewLevel(5)" class="level" id="l5">harder</button>
+</div>
+      </div>
       <div class="puzzle-container" id="puzz-container">
         <div id="game-board" class="game-board"></div>
         <div id="color-tiles" class="color-tiles"></div>
@@ -60,7 +71,7 @@
           </svg>
         </div>
       </div>
-      <button id="reset">get new puzzle</button>
     </div>
+    
   </body>
 </html>

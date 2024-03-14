@@ -12,46 +12,35 @@ let gameState;
 let getFill;
 let prevClick;
 
-
 // cache ------------------------------------------------
 const puzzContainer = document.getElementById("puzz-container");
 const gameBoardDiv = document.getElementById("game-board");
 const colorBankDiv = document.getElementById("color-tiles");
 const msgDiv = document.getElementById("message");
-const resetBtn = document.getElementById("reset");
 const clickCountDiv = document.getElementById("click-data");
-const refreshBtn = document.getElementById('refresh-board');
-const levelBtns = document.getElementById('level-btns')
-const logoBtn = document.getElementById('logo-nav');
-
-
-
-
+const refreshBtn = document.getElementById("refresh-board");
+const levelBtns = document.getElementById("level-btns-game");
+const logoBtn = document.getElementById("logo-nav");
 // event listeners
-puzzContainer.addEventListener('click', handleGameActions);
-refreshBtn.addEventListener('click', resetBoard);
-resetBtn.addEventListener('click', init);
-logoBtn.addEventListener('click', () => {
-  window.location = 'index.html'
-})
-
-
+puzzContainer.addEventListener("click", handleGameActions);
+refreshBtn.addEventListener("click", resetBoard);
+logoBtn.addEventListener("click", () => {
+  window.location = "index.html";
+});
 // initialize game ------------------------------------------------
 init();
 
 function init(level) {
-  level = JSON.parse(localStorage.getItem('level'));
+  level = JSON.parse(localStorage.getItem("level"));
   key1 = 0;
   key2 = level;
   key4 = (level + 1) * (level + 1) - 1;
   key3 = key4 - level;
-
   // puzzKey = getPuzzKey(level);
   // guessBankVals = getGuessBank();
   // puzzBoard = initPuzzBoard();
 
   // renderPuzzleData(level);
-
 
   gameState = 1;
   isSolved = false;
@@ -60,38 +49,44 @@ function init(level) {
 }
 
 // event listener functions
+function startNewLevel(evt) {
+  localStorage.setItem('level', JSON.parse(evt));
+  window.location.href = 'blendoku.html'
+}
+
 function handleGameActions(evt) {
-    let e = evt.target;
-    let eTargetId = e.id;
-    
-    if (e === puzzDivArr[key1] ||
-        e === puzzDivArr[key2] ||
-        e === puzzDivArr[key3] ||
-        e === puzzDivArr[key4] ||
-        eTargetId === 'game-board' ||
-        eTargetId === 'color-tiles' || isSolved) {
-        return
-    }
+  let e = evt.target;
+  let eTargetId = e.id;
 
-    if (gameState === 1) {
-        if (e.style.background === 'none') return;
-        prevClick = e;
-        getFill = e.style.background;
-        e.style.width = '80%';
-        e.style.height = '80%';
-    }
-    if (gameState === -1) {
-        console.log(getFill)
-        prevClick.style.background = e.style.background
-        e.style.background = getFill;
-        prevClick.style.width = '100%';
-        prevClick.style.height = '100%';
-        clickCount += 1;
-    }
+  if (
+    e === puzzDivArr[key1] ||
+    e === puzzDivArr[key2] ||
+    e === puzzDivArr[key3] ||
+    e === puzzDivArr[key4] ||
+    eTargetId === "game-board" ||
+    eTargetId === "color-tiles" ||
+    isSolved
+  ) {
+    return;
+  }
 
+  if (gameState === 1) {
+    if (e.style.background === "none") return;
+    prevClick = e;
+    getFill = e.style.background;
+    e.style.width = "80%";
+    e.style.height = "80%";
+  }
+  if (gameState === -1) {
+    prevClick.style.background = e.style.background;
+    e.style.background = getFill;
+    prevClick.style.width = "100%";
+    prevClick.style.height = "100%";
+    clickCount += 1;
+  }
 
-    gameState *= -1;
-    checkSolved();
+  gameState *= -1;
+  checkSolved();
 }
 
 function resetBoard() {
@@ -99,19 +94,17 @@ function resetBoard() {
   guessBankVals = getGuessBank();
   isSolved = false;
   clickCount = 0;
-  render(level)
+  render(level);
 }
-
-
 
 function checkSolved() {
   let solveCount = 0;
-  
+
   const filledDivs = puzzDivArr.map((div) => {
-    let bgColor =  div.style.background;
-    bgColor = bgColor.replace(/\s/g, '');
-    return bgColor
-  })
+    let bgColor = div.style.background;
+    bgColor = bgColor.replace(/\s/g, "");
+    return bgColor;
+  });
 
   const convertkey = convertToRgbVal(puzzKey);
 
@@ -122,16 +115,14 @@ function checkSolved() {
       solveCount += 0;
     }
   }
- 
- if (solveCount < convertkey.length) {
-  isSolved = false;
- } else {
-  isSolved = true;
- }
 
- renderControls();
+  if (solveCount < convertkey.length) {
+    isSolved = false;
+  } else {
+    isSolved = true;
+  }
 
-
+  renderControls();
 }
 // color generation functions ------------------------------------------------
 // combines values into rgb matrix
@@ -283,15 +274,14 @@ function renderGuessTiles() {
     guessBankTile.style.background = color;
     colorBankDiv.appendChild(guessBankTile);
   });
-
 }
 function renderGameBoard() {
   puzzBoard.forEach((color, idx) => {
     const puzzBoardDiv = document.createElement("div");
-    const emptyDiv = document.createElement('div');
-    emptyDiv.classList.add('empty-space');
-    emptyDiv.style.border = '1px solid white'
-    puzzBoardDiv.appendChild(emptyDiv)
+    const emptyDiv = document.createElement("div");
+    emptyDiv.classList.add("empty-space");
+    emptyDiv.style.border = "1px solid white";
+    puzzBoardDiv.appendChild(emptyDiv);
     puzzBoardDiv.classList.add("game-tile");
     puzzBoardDiv.id = `c${idx}`;
     gameBoardDiv.appendChild(puzzBoardDiv);
@@ -319,30 +309,34 @@ function renderLevelSetUp() {
   renderGuessTiles();
   renderGameBoard();
 
-  puzzDivArr = [...document.querySelectorAll('#game-board > div')];
-  emptyDivArr = [...document.querySelectorAll('.empty-space')]
-  console.log(emptyDivArr)
+  puzzDivArr = [...document.querySelectorAll("#game-board > div")];
+  emptyDivArr = [...document.querySelectorAll(".empty-space")];
 }
 
 function renderControls() {
-  console.log(puzzDivArr)
+  levelBtns.style.display = 'none';
+  let length = puzzDivArr.length + 5 ;
   if (isSolved) {
+   
     emptyDivArr.forEach((div) => {
-      div.style.visibility = 'hidden'
-    })
-    msgDiv.innerText = '';
-    resetBtn.style.visibility = 'visible';
+      div.style.visibility = "hidden";
+    });
+    msgDiv.innerText = "";
     puzzDivArr.forEach((div, idx) => {
       setTimeout(() => {
-        div.classList.add('grow-shrink')
-      }, 150 * idx)
-    })
+        div.classList.add("grow-shrink");
+      }, 75 * idx);
+    });
+
+    setTimeout(() => {
+      levelBtns.style.display = 'grid';
+    }, 75 * length )
   }
 
-  if (!isSolved) {
-    msgDiv.innerText = 'Correctly place all color tiles on the color board';
-    resetBtn.style.visibility = 'hidden';
-  }
+
+
+isSolved ? msgDiv.innerText = `Congrats! You solved the puzzle in ${clickCount} clicks` : msgDiv.innerText = "Correctly place all color tiles to solve the puzzle"
+
 
   clickCountDiv.innerText = clickCount;
 }
