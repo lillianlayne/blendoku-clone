@@ -9,7 +9,7 @@
   max-width: 500px;
 }
 
-.absolute-center, .game-tile::before, #game-container {
+.absolute-center, .empty-space, #game-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,7 +27,7 @@
   max-width: 500px;
 }
 
-.absolute-center, .game-tile::before, #game-container {
+.absolute-center, .empty-space, #game-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -42,6 +42,7 @@ nav {
   margin-top: 30px;
   font-size: 12px;
   letter-spacing: 0.5px;
+  cursor: pointer;
 }
 @media only screen and (max-width: 450px) {
   nav {
@@ -87,11 +88,10 @@ nav {
   position: relative;
   background: none;
 }
-.game-tile::before {
-  content: "";
+
+.empty-space {
   height: 50%;
   width: 50%;
-  border: 1px solid #aba29e;
   border-radius: 8px;
   z-index: -99;
 }
@@ -167,6 +167,21 @@ nav {
   width: 2vmin;
 }
 
+.grow-shrink {
+  animation: grow-shrink 0.25s linear;
+}
+
+@keyframes grow-shrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .flex-ctr, .refresh-board {
   display: flex;
   align-items: center;
@@ -178,7 +193,7 @@ nav {
   max-width: 500px;
 }
 
-.absolute-center, #game-container, .game-tile::before {
+.absolute-center, #game-container, .empty-space {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -187,7 +202,7 @@ nav {
 
 .logo {
   margin: 30px auto;
-  font-size: 12px;
+  font-size: 18px;
   letter-spacing: 0.5px;
   text-align: center;
 }

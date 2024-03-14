@@ -8,6 +8,8 @@ nav {
     margin-top: 30px;
     font-size: 12px;
     letter-spacing: .5px;
+      cursor: pointer;
+    
 
     @media only screen and (max-width: 450px) {
       width: 300px
@@ -54,20 +56,15 @@ nav {
   position: relative;
   background: none;
  
-  
+}
 
-  &::before {
-    content: "";
-    height: 50%;
-    width: 50%;
+.empty-space {
+  height: 50%;
+  width: 50%;
 
-    @extend .absolute-center;
-    border: 1px solid $dark-scnd-white;
-    border-radius: 8px;
-    z-index: -99;
-  }
-
- 
+  @extend .absolute-center;
+  border-radius: 8px;
+  z-index: -99;
 }
 
 .color-tiles {
@@ -151,3 +148,20 @@ nav {
     width: 2vmin
   }
 }
+
+.grow-shrink {
+  animation: grow-shrink 0.25s linear;
+}
+
+@keyframes grow-shrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+

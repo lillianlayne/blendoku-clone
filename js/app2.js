@@ -22,13 +22,18 @@ const resetBtn = document.getElementById("reset");
 const clickCountDiv = document.getElementById("click-data");
 const refreshBtn = document.getElementById('refresh-board');
 const levelBtns = document.getElementById('level-btns')
-// let puzzDivArr;
-// let bankDivArr;
+const logoBtn = document.getElementById('logo-nav');
+
+
+
 
 // event listeners
 puzzContainer.addEventListener('click', handleGameActions);
 refreshBtn.addEventListener('click', resetBoard);
 resetBtn.addEventListener('click', init);
+logoBtn.addEventListener('click', () => {
+  window.location = 'index.html'
+})
 
 
 // initialize game ------------------------------------------------
@@ -64,7 +69,7 @@ function handleGameActions(evt) {
         e === puzzDivArr[key3] ||
         e === puzzDivArr[key4] ||
         eTargetId === 'game-board' ||
-        eTargetId === 'color-tiles') {
+        eTargetId === 'color-tiles' || isSolved) {
         return
     }
 
@@ -82,9 +87,8 @@ function handleGameActions(evt) {
         prevClick.style.width = '100%';
         prevClick.style.height = '100%';
         clickCount += 1;
-
     }
-    
+
 
     gameState *= -1;
     checkSolved();
@@ -126,7 +130,6 @@ function checkSolved() {
  }
 
  renderControls();
- console.log(solveCount, convertkey.length, isSolved)
 
 
 }
@@ -285,6 +288,10 @@ function renderGuessTiles() {
 function renderGameBoard() {
   puzzBoard.forEach((color, idx) => {
     const puzzBoardDiv = document.createElement("div");
+    const emptyDiv = document.createElement('div');
+    emptyDiv.classList.add('empty-space');
+    emptyDiv.style.border = '1px solid white'
+    puzzBoardDiv.appendChild(emptyDiv)
     puzzBoardDiv.classList.add("game-tile");
     puzzBoardDiv.id = `c${idx}`;
     gameBoardDiv.appendChild(puzzBoardDiv);
@@ -313,13 +320,23 @@ function renderLevelSetUp() {
   renderGameBoard();
 
   puzzDivArr = [...document.querySelectorAll('#game-board > div')];
+  emptyDivArr = [...document.querySelectorAll('.empty-space')]
+  console.log(emptyDivArr)
 }
 
 function renderControls() {
-  
+  console.log(puzzDivArr)
   if (isSolved) {
-    msgDiv.innerText = 'nice';
+    emptyDivArr.forEach((div) => {
+      div.style.visibility = 'hidden'
+    })
+    msgDiv.innerText = '';
     resetBtn.style.visibility = 'visible';
+    puzzDivArr.forEach((div, idx) => {
+      setTimeout(() => {
+        div.classList.add('grow-shrink')
+      }, 150 * idx)
+    })
   }
 
   if (!isSolved) {
