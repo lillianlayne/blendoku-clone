@@ -23,10 +23,13 @@ const levelBtns = document.getElementById("level-btns-game");
 const logoBtn = document.getElementById("logo-nav");
 // event listeners
 puzzContainer.addEventListener("click", handleGameActions);
-refreshBtn.addEventListener("click", resetBoard);
+refreshBtn.addEventListener("click", () => {
+  window.location.href = 'blendoku.html'
+});
 logoBtn.addEventListener("click", () => {
   window.location = "index.html";
 });
+
 // initialize game ------------------------------------------------
 init();
 
@@ -57,7 +60,7 @@ function startNewLevel(evt) {
 function handleGameActions(evt) {
   let e = evt.target;
   let eTargetId = e.id;
-
+  
   if (
     e === puzzDivArr[key1] ||
     e === puzzDivArr[key2] ||
@@ -65,6 +68,7 @@ function handleGameActions(evt) {
     e === puzzDivArr[key4] ||
     eTargetId === "game-board" ||
     eTargetId === "color-tiles" ||
+    eTargetId === "puzz-container" ||
     isSolved
   ) {
     return;
@@ -89,13 +93,7 @@ function handleGameActions(evt) {
   checkSolved();
 }
 
-function resetBoard() {
-  puzzKey = getPuzzKey(level);
-  guessBankVals = getGuessBank();
-  isSolved = false;
-  clickCount = 0;
-  render(level);
-}
+
 
 function checkSolved() {
   let solveCount = 0;
@@ -280,7 +278,7 @@ function renderGameBoard() {
     const puzzBoardDiv = document.createElement("div");
     const emptyDiv = document.createElement("div");
     emptyDiv.classList.add("empty-space");
-    emptyDiv.style.border = "1px solid white";
+    emptyDiv.style.border = ".5px solid white";
     puzzBoardDiv.appendChild(emptyDiv);
     puzzBoardDiv.classList.add("game-tile");
     puzzBoardDiv.id = `c${idx}`;
@@ -317,7 +315,7 @@ function renderControls() {
   levelBtns.style.display = 'none';
   let length = puzzDivArr.length + 5 ;
   if (isSolved) {
-   
+   colorBankDiv.style.display = 'none';
     emptyDivArr.forEach((div) => {
       div.style.visibility = "hidden";
     });

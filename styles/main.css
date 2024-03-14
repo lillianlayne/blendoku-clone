@@ -9,7 +9,7 @@
   max-width: 500px;
 }
 
-.absolute-center, .empty-space, #game-container {
+.absolute-center, .empty-space {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,11 +27,28 @@
   max-width: 500px;
 }
 
-.absolute-center, .empty-space, #game-container {
+.absolute-center, .empty-space {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+body {
+  background: #1c1917;
+  margin: 0 auto;
+  height: 90vh;
+  font-family: "Monserrat", sans-serif;
+  color: #aba29e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+@media only screen and (max-width: 450px) {
+  body {
+    justify-content: flex-end;
+  }
 }
 
 nav {
@@ -42,26 +59,38 @@ nav {
   margin-top: 30px;
   font-size: 12px;
   letter-spacing: 0.5px;
+  position: absolute;
+  top: 3.5%;
   cursor: pointer;
 }
 @media only screen and (max-width: 450px) {
   nav {
+    top: 5px;
     width: 300px;
   }
 }
 
 #game-container {
   width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 @media only screen and (max-width: 450px) {
   #game-container {
     width: 300px;
+    height: 70vh;
+    justify-content: space-between;
   }
 }
 
-.game-container {
-  display: flex;
-  flex-direction: column;
+.puzzle-container {
+  display: grid;
+  height: 100%;
+}
+@media screen and (max-width: 430px) {
+  .puzzle-container {
+    height: 60%;
+  }
 }
 
 #game-board {
@@ -70,10 +99,8 @@ nav {
   height: 400px;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
   cursor: pointer;
   place-items: center;
-  margin-top: 5vmin;
 }
 @media only screen and (max-width: 450px) {
   #game-board {
@@ -84,7 +111,7 @@ nav {
 .game-tile {
   height: 100%;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
   position: relative;
   background: none;
 }
@@ -92,7 +119,7 @@ nav {
 .empty-space {
   height: 50%;
   width: 50%;
-  border-radius: 8px;
+  border-radius: 4px;
   z-index: -99;
 }
 
@@ -103,12 +130,14 @@ nav {
   position: relative;
   cursor: pointer;
   place-items: center;
+  gap: 4px;
+  height: 25%;
 }
 
 .color-tile {
   height: 100%;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 6px;
   aspect-ratio: 1/1;
   position: relative;
 }
@@ -127,11 +156,9 @@ nav {
 
 .message {
   text-align: center;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  margin: 0 auto;
+  width: 60%;
+  text-align: center;
 }
 
 #reset {
@@ -147,14 +174,15 @@ nav {
 
 .user-controls {
   display: flex;
-  width: 400px;
+  width: 100%;
   justify-content: space-between;
   color: #aba29e;
-  margin: 1.5vmin 0 8vmin 0;
+  margin-top: 20px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 14px;
   align-items: flex-end;
+  flex-direction: row;
 }
 
 .refresh-board {
@@ -166,6 +194,12 @@ nav {
 .refresh-board svg {
   height: 2vmin;
   width: 2vmin;
+}
+@media only screen and (max-width: 450px) {
+  .refresh-board svg {
+    height: 20px;
+    width: 20px;
+  }
 }
 
 .grow-shrink {
@@ -183,15 +217,24 @@ nav {
     transform: scale(1);
   }
 }
-.button-container {
+h3 {
+  margin: 0px;
+}
+
+.level-game {
+  padding: 20px;
+  border-radius: 100px;
+  border: none;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1vmin;
+  gap: 4px;
+  margin-bottom: 20px;
 }
 
 .flex-ctr, .refresh-board {
@@ -205,11 +248,28 @@ nav {
   max-width: 500px;
 }
 
-.absolute-center, #game-container, .empty-space {
+.absolute-center, .empty-space {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+body {
+  background: #1c1917;
+  margin: 0 auto;
+  height: 100vh;
+  font-family: "Monserrat", sans-serif;
+  color: #aba29e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+@media only screen and (max-width: 450px) {
+  body {
+    justify-content: center;
+  }
 }
 
 .logo {
@@ -217,6 +277,8 @@ nav {
   font-size: 18px;
   letter-spacing: 0.5px;
   text-align: center;
+  position: absolute;
+  top: 5%;
 }
 
 h3 {
@@ -224,6 +286,7 @@ h3 {
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .intro-container {
@@ -273,20 +336,20 @@ h3 {
 }
 
 .level-btn-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5vmin;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .level {
   width: 100%;
   height: 65px;
-  border-radius: 0.5vmin;
+  border-radius: 100px;
   border: none;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: bold;
   color: #1c1917;
+  margin: 10px auto;
 }
 
 #l2 {
@@ -312,12 +375,4 @@ h3 {
 * {
   box-sizing: border-box;
   margin: 0;
-}
-
-body {
-  background: #1c1917;
-  margin: 0 auto;
-  height: 100vh;
-  font-family: "Monserrat", sans-serif;
-  color: #aba29e;
 }/*# sourceMappingURL=main.css.map */

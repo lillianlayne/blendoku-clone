@@ -1,17 +1,36 @@
 @import 'globalVariables';
 
-
+body {
+    background: $dark-black;
+    margin: 0 auto;
+    height: 100vh;
+    font-family: 'Monserrat', sans-serif;
+    color: $dark-scnd-white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  
+      @media only screen and (max-width: 450px) {
+        justify-content: center;
+      }
+  }
+  
+  
 .logo {
     margin: 30px auto;
     font-size: 18px;
     letter-spacing: .5px;
     text-align: center;
+    position: absolute;
+    top: 5%
 }
 h3 {
     margin: 30px auto;
     font-size: 14px;
     letter-spacing: .5px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 
@@ -64,20 +83,21 @@ h3 {
 }
 
 .level-btn-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5vmin
+    width: 300px;
+    margin: 0 auto
 }
 
 .level {
     width: 100%;
     height: 65px;
-    border-radius: .5vmin;
+    border-radius: 100px;
     border: none;
     text-transform: uppercase;
     letter-spacing: .05em;
     font-weight: bold;
     color: $dark-black;
+    margin: 10px auto;
+
     
 }
 

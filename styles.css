@@ -1,0 +1,158 @@
+.dark {
+    --background: #1c1917;
+    --wht-100: #fafaf9;
+    --wht-300: #aba29e;
+    --wht-500: #292524
+}
+.light {
+    --background: #1c1917;
+    --wht-100: #fafaf9;
+    --wht-300: #aba29e;
+    --wht-500: #292524
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background: var(--background);
+    width: 500px;
+    margin: 0 auto;
+    height: 100vh;
+    font-family: Montserrat;
+    color: var(--wht-300)
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.game-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    padding: 20px;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    text-transform: uppercase;
+}
+
+#l2 {
+    background: #FFC543
+}
+
+#l3 {
+    background: #8BAFA9
+}
+
+#l4 {
+   background: #B8B0D9 
+}
+
+#l5 {
+   background: #FD7352
+}
+
+.title {
+    text-align: center;
+    padding: 20px;
+}
+
+.level {
+    padding: 20px;
+    border-radius: 100px;
+    border: none;
+}
+
+.puzzle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5% 0px 5% 0px;
+}
+
+.game-board {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    gap: 6px
+}
+
+.game-tile {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+}
+
+.empty-space {
+    height: 80%;
+    width: 80%;
+    border: 1px solid var(--wht-300);
+    border-radius: 8px;
+}
+
+.color-tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+}
+
+.color-tile {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+    margin-top: 100px;
+    display: grid;
+    place-items: center;
+}
+
+.color-tile::before {
+    content: '';
+    height: 10px;
+    width: 10px;
+    background: var(--wht-300);
+    border-radius: 100%;
+    z-index: -99
+}
+
+.user-controls {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .08em;
+    align-items: center;
+}
+
+.refresh-board {
+    height: 40px;
+    width:40px;
+    background: var(--wht-300);
+    color: var(--background);
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+}
