@@ -12,6 +12,7 @@ let gameState;
 let getFill;
 let prevClick;
 
+
 // cache ------------------------------------------------
 const puzzContainer = document.getElementById("puzz-container");
 const gameBoardDiv = document.getElementById("game-board");
@@ -20,26 +21,32 @@ const msgDiv = document.getElementById("message");
 const resetBtn = document.getElementById("reset");
 const clickCountDiv = document.getElementById("click-data");
 const refreshBtn = document.getElementById('refresh-board');
-let puzzDivArr;
-let bankDivArr;
+const levelBtns = document.getElementById('level-btns')
+// let puzzDivArr;
+// let bankDivArr;
 
 // event listeners
 puzzContainer.addEventListener('click', handleGameActions);
+refreshBtn.addEventListener('click', resetBoard);
+resetBtn.addEventListener('click', init);
+
 
 // initialize game ------------------------------------------------
 init();
 
 function init(level) {
-  level = 2;
-
+  level = JSON.parse(localStorage.getItem('level'));
   key1 = 0;
   key2 = level;
   key4 = (level + 1) * (level + 1) - 1;
   key3 = key4 - level;
 
-  puzzKey = getPuzzKey(level);
-  guessBankVals = getGuessBank();
-  puzzBoard = initPuzzBoard();
+  // puzzKey = getPuzzKey(level);
+  // guessBankVals = getGuessBank();
+  // puzzBoard = initPuzzBoard();
+
+  // renderPuzzleData(level);
+
 
   gameState = 1;
   isSolved = false;
@@ -74,13 +81,24 @@ function handleGameActions(evt) {
         e.style.background = getFill;
         prevClick.style.width = '100%';
         prevClick.style.height = '100%';
+        clickCount += 1;
 
     }
     
-  
+
     gameState *= -1;
     checkSolved();
 }
+
+function resetBoard() {
+  puzzKey = getPuzzKey(level);
+  guessBankVals = getGuessBank();
+  isSolved = false;
+  clickCount = 0;
+  render(level)
+}
+
+
 
 function checkSolved() {
   let solveCount = 0;
@@ -240,9 +258,16 @@ function convertToRgbVal(arr) {
 }
 
 // render DOM functions ------------------------------------------------
-function render() {
-  renderLevelSetUp();
+function render(level) {
+  renderPuzzleData(level);
+  renderLevelSetUp(level);
   renderControls();
+}
+
+function renderPuzzleData(level) {
+  puzzKey = getPuzzKey(level);
+  guessBankVals = getGuessBank();
+  puzzBoard = initPuzzBoard();
 }
 
 function renderGuessTiles() {
@@ -302,5 +327,5 @@ function renderControls() {
     resetBtn.style.visibility = 'hidden';
   }
 
-
+  clickCountDiv.innerText = clickCount;
 }
