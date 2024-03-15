@@ -296,6 +296,8 @@ function renderPuzzleData(level) {
 function renderGuessTiles() {
   const guessTileColorArr = convertToRgbVal(guessBankVals);
   const randomize = guessTileColorArr.sort((a, b) => 0.5 - Math.random());
+  let numRow = Math.floor(guessTileColorArr.length / 7) + 1;
+  const templateGrid = `repeat(${numRow}, 1fr)`;
 
   randomize.forEach((color) => {
     const guessBankTile = document.createElement("div");
@@ -303,6 +305,8 @@ function renderGuessTiles() {
     guessBankTile.style.background = color;
     colorBankDiv.appendChild(guessBankTile);
   });
+
+  colorBankDiv.style.gridTemplateRows = templateGrid;
 }
 function renderGameBoard() {
   puzzBoard.forEach((color, idx) => {

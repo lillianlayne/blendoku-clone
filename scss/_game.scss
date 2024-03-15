@@ -12,15 +12,15 @@ body {
   grid-template-areas: "nav" "msg" "game";
   grid-gap: 32px;
   @media screen and (max-width: 450px) {
-    max-width: 92%
+    max-width: 92%;
   }
-} 
+}
 
 nav {
   position: absolute;
   top: 1%;
   margin: 0 auto;
-  width: 400px; 
+  width: 400px;
   display: flex;
   height: 10%;
   justify-content: space-between;
@@ -28,15 +28,14 @@ nav {
   cursor: pointer;
 
   @media screen and (max-width: 450px) {
-    max-width: 92%
+    width: 90%;
   }
 }
 
-
 .top-container {
-grid-area: msg;
-width: 100%;
-@extend .flex-ctr;
+  grid-area: msg;
+  width: 100%;
+  @extend .flex-ctr;
 }
 
 .game-container {
@@ -60,16 +59,20 @@ width: 100%;
   grid-template-columns: repeat(4, 1fr);
   margin: 5vmin 0;
   cursor: pointer;
+  @media screen and (max-width: 430px) {
+    margin: 25px auto;
+    width: 90%;
+  }
 }
 
 .game-tile {
   height: 100%;
   width: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   border-radius: 12px;
-   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .empty-space {
@@ -82,12 +85,17 @@ width: 100%;
 
 .color-tiles {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   place-items: center;
   width: 100%;
   margin: 0 0 2vmin 0;
   cursor: pointer;
   gap: 4px;
+
+  @media screen and (max-width: 430px) {
+    margin: 10px auto;
+    width: 90%;
+  }
 }
 
 .color-tile {
@@ -97,20 +105,16 @@ width: 100%;
   aspect-ratio: 1 / 1;
   cursor: pointer;
   @extend .flex-ctr;
-  
+
   &::before {
-    content: '';
+    content: "";
     height: 12px;
     width: 12px;
     background: $dark-scnd-white;
     border-radius: 4px;
     z-index: -99;
   }
-  @media screen and (max-width: 430px) {
-    max-height: 50px;
-    max-width: 50px;
-  }
-  }
+}
 
 .user-controls {
   width: 100%;
@@ -122,7 +126,12 @@ width: 100%;
   svg {
     height: 20px;
     width: 20px;
-    color: $dark-black
+    color: $dark-black;
+  }
+
+  @media screen and (max-width: 430px) {
+    margin: 10px auto;
+    width: 90%;
   }
 }
 
@@ -150,14 +159,14 @@ width: 100%;
   border: none;
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   border-radius: 500px;
- @extend .default-shadow;
- cursor: pointer;
+  @extend .default-shadow;
+  cursor: pointer;
 }
 
 .level-game:hover {
-  @extend .hover-shadow
+  @extend .hover-shadow;
 }
 
 @keyframes grow-shrink {
@@ -171,4 +180,3 @@ width: 100%;
     transform: scale(1);
   }
 }
-

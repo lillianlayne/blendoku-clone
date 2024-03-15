@@ -121,7 +121,7 @@ nav {
 }
 @media screen and (max-width: 450px) {
   nav {
-    max-width: 92%;
+    width: 90%;
   }
 }
 
@@ -152,6 +152,12 @@ nav {
   margin: 5vmin 0;
   cursor: pointer;
 }
+@media screen and (max-width: 430px) {
+  .game-board {
+    margin: 25px auto;
+    width: 90%;
+  }
+}
 
 .game-tile {
   height: 100%;
@@ -173,12 +179,18 @@ nav {
 
 .color-tiles {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   place-items: center;
   width: 100%;
   margin: 0 0 2vmin 0;
   cursor: pointer;
   gap: 4px;
+}
+@media screen and (max-width: 430px) {
+  .color-tiles {
+    margin: 10px auto;
+    width: 90%;
+  }
 }
 
 .color-tile {
@@ -196,12 +208,6 @@ nav {
   border-radius: 4px;
   z-index: -99;
 }
-@media screen and (max-width: 430px) {
-  .color-tile {
-    max-height: 50px;
-    max-width: 50px;
-  }
-}
 
 .user-controls {
   width: 100%;
@@ -214,6 +220,12 @@ nav {
   height: 20px;
   width: 20px;
   color: #1c1917;
+}
+@media screen and (max-width: 430px) {
+  .user-controls {
+    margin: 10px auto;
+    width: 90%;
+  }
 }
 
 .refresh-board {
