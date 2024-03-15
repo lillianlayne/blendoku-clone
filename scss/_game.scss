@@ -96,8 +96,8 @@ width: 100%;
   width: 100%;
   aspect-ratio: 1 / 1;
   cursor: pointer;
- @extend .flex-ctr;
-
+  @extend .flex-ctr;
+  
   &::before {
     content: '';
     height: 12px;
@@ -105,6 +105,10 @@ width: 100%;
     background: $dark-scnd-white;
     border-radius: 4px;
     z-index: -99;
+  }
+  @media screen and (max-width: 430px) {
+    max-height: 50px;
+    max-width: 50px;
   }
   }
 

@@ -196,6 +196,12 @@ nav {
   border-radius: 4px;
   z-index: -99;
 }
+@media screen and (max-width: 430px) {
+  .color-tile {
+    max-height: 50px;
+    max-width: 50px;
+  }
+}
 
 .user-controls {
   width: 100%;
