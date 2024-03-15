@@ -1,193 +1,158 @@
-@import 'globalVariables';
-
+@import "globalVariables";
 
 body {
   background: $dark-black;
   margin: 0 auto;
-  height: 90vh;
-  font-family: 'Monserrat', sans-serif;
+  height: 100vh;
+  font-family: "Monserrat", sans-serif;
   color: $dark-scnd-white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    @media only screen and (max-width: 450px) {
-      justify-content: flex-end;
-    }
-}
-
-
+  max-width: 400px;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas: "nav" "msg" "game";
+  grid-gap: 32px;
+  @media screen and (max-width: 450px) {
+    max-width: 92%
+  }
+} 
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    width: 400px;
-    margin: 0 auto;
-    margin-top: 30px;
-    font-size: 12px;
-    letter-spacing: .5px;
-    position: absolute;
-    top:3.5%;
-      cursor: pointer;
-    
+  position: absolute;
+  top: 1%;
+  margin: 0 auto;
+  width: 400px; 
+  display: flex;
+  height: 10%;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 
-    @media only screen and (max-width: 450px) {
-      top: 5px;
-      width: 300px
-    }
-
+  @media screen and (max-width: 450px) {
+    max-width: 92%
+  }
 }
 
 
+.top-container {
+grid-area: msg;
+width: 100%;
+@extend .flex-ctr;
+}
 
-#game-container {
-  width: 400px;  
-  display: flex;
-  flex-direction: column;
-   @media only screen and (max-width: 450px) {
-    width: 300px;
-    height: 70vh;
-    justify-content: space-between;
-  }
+.game-container {
+  grid-area: game;
+  width: 100%;
+  cursor: pointer;
 }
 
 .puzzle-container {
-  display: grid;
-  height: 100%;
-  @media screen and (max-width: 430px) {
-    height: 60%;
-
-  }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
 }
 
-#game-board {
+.game-board {
   display: grid;
-  width: 100%;
-  height: 400px;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 1fr);
-  cursor: pointer;
   place-items: center;
-  @media only screen and (max-width: 450px) {
-    height: 300px
-  }
+  width: 100%;
+  aspect-ratio: 1/1;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 5vmin 0;
+  cursor: pointer;
 }
 
 .game-tile {
   height: 100%;
   width: 100%;
-  border-radius:10px;
-  position: relative;
-  background: none;
- 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 12px;
+   cursor: pointer;
 }
 
 .empty-space {
   height: 50%;
   width: 50%;
-
-  @extend .absolute-center;
-  border-radius: 4px;
+  border: 1px solid $dark-scnd-white;
+  border-radius: 6px;
   z-index: -99;
 }
 
 .color-tiles {
   display: grid;
-  @extend .padding;
-  grid-template-columns: repeat(7, 1fr);
-  margin-top: 45px;
-  position: relative;
-  cursor: pointer;
+  grid-template-columns: repeat(6, 1fr);
   place-items: center;
+  width: 100%;
+  margin: 0 0 2vmin 0;
+  cursor: pointer;
   gap: 4px;
-  height: 25%;
- 
 }
 
 .color-tile {
+  border-radius: 8px;
   height: 100%;
   width: 100%;
-  border-radius: 6px;
   aspect-ratio: 1 / 1;
-  position: relative;
-
-  
- 
-  
+  cursor: pointer;
+ @extend .flex-ctr;
 
   &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 10%;
-    width: 10%;
-    border-radius: 2px;
+    content: '';
+    height: 12px;
+    width: 12px;
     background: $dark-scnd-white;
-    z-index: -33;
+    border-radius: 4px;
+    z-index: -99;
   }
-}
-
-.message {
-  text-align: center;
-  margin: 0 auto;
- 
-  width: 60%;
-  text-align: center;
-  
-  
-}
-
-#reset {
-  padding: 4vmin 12vmin;
-  
-  margin: 0 auto;
-  border-radius: 500px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-weight: bold;
-  border-width: 1px;
-  background: $dark-scnd-white
-  
-}
+  }
 
 .user-controls {
-  display: flex;
   width: 100%;
+  display: flex;
   justify-content: space-between;
-  color: $dark-scnd-white;
-  margin-top: 20px;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: 14px;
-  align-items: flex-end;
-  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
 
-
+  svg {
+    height: 20px;
+    width: 20px;
+    color: $dark-black
+  }
 }
 
 .refresh-board {
-  background: $dark-light-grey;
+  height: 30px;
+  width: 30px;
   border-radius: 100%;
-  padding: 1vmin;
-  cursor: pointer;
-  
+  background: $dark-scnd-white;
   @extend .flex-ctr;
-  svg {
-    height: 2vmin;
-    width: 2vmin;
-    @media only screen and (max-width: 450px) {
-  height: 20px;
-  width: 20px;
-    }
-  }
-
 }
 
 .grow-shrink {
   animation: grow-shrink 0.25s linear;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 400px;
+  gap: 8px;
+}
+
+.level-game {
+  padding: 20px;
+  width: 100%;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .05em;
+  border-radius: 500px;
+ @extend .default-shadow
+}
+
+.level-game:hover {
+  @extend .hover-shadow
 }
 
 @keyframes grow-shrink {
@@ -202,22 +167,3 @@ nav {
   }
 }
 
-h3 {
-  margin: 0px;
-}
-
-.level-game {
-  padding: 20px;
-  border-radius: 100px;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: .01em;
-
-}
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-  margin-bottom: 20px
-}

@@ -11,7 +11,20 @@ let clickCount;
 let gameState;
 let getFill;
 let prevClick;
+let theme;
 
+const themeColors = {
+  1: {
+    color: "#E8EADF",
+    bg: "#1c1917",
+    accent: "#aba29e",
+  },
+  "-1": {
+    color: "#a3846d",
+    bg: "#E8EADF",
+    accent: "#a3846d",
+  },
+};
 // cache ------------------------------------------------
 const puzzContainer = document.getElementById("puzz-container");
 const gameBoardDiv = document.getElementById("game-board");
@@ -21,14 +34,16 @@ const clickCountDiv = document.getElementById("click-data");
 const refreshBtn = document.getElementById("refresh-board");
 const levelBtns = document.getElementById("level-btns-game");
 const logoBtn = document.getElementById("logo-nav");
+const themeToggle = document.getElementById("theme-toggle");
 // event listeners
 puzzContainer.addEventListener("click", handleGameActions);
 refreshBtn.addEventListener("click", () => {
-  window.location.href = 'blendoku.html'
+  window.location.href = "blendoku.html";
 });
 logoBtn.addEventListener("click", () => {
   window.location = "index.html";
 });
+themeToggle.addEventListener("click", changeTheme);
 
 // initialize game ------------------------------------------------
 init();
@@ -39,28 +54,45 @@ function init(level) {
   key2 = level;
   key4 = (level + 1) * (level + 1) - 1;
   key3 = key4 - level;
-  // puzzKey = getPuzzKey(level);
-  // guessBankVals = getGuessBank();
-  // puzzBoard = initPuzzBoard();
-
-  // renderPuzzleData(level);
-
+  theme = 1;
   gameState = 1;
   isSolved = false;
   clickCount = 0;
   render(level);
 }
 
+function changeTheme(evt) {
+  const e = evt.target;
+
+  if (theme === 1) {
+    themeToggle.style.justifyContent = "flex-end";
+  }
+
+  if (theme === -1) {
+    themeToggle.style.justifyContent = "flex-start";
+  }
+
+  theme *= -1;
+
+  document.body.style.color = themeColors[theme].color;
+  document.body.style.background = themeColors[theme].bg;
+  emptyDivArr.forEach((div) => {
+    div.style.border = `1px solid ${themeColors[theme].accent}`;
+  });
+  refreshBtn.style.color = themeColors[theme].bg;
+  refreshBtn.style.background = themeColors[theme].accent;
+}
+
 // event listener functions
 function startNewLevel(evt) {
-  localStorage.setItem('level', JSON.parse(evt));
-  window.location.href = 'blendoku.html'
+  localStorage.setItem("level", JSON.parse(evt));
+  window.location.href = "blendoku.html";
 }
 
 function handleGameActions(evt) {
   let e = evt.target;
   let eTargetId = e.id;
-  
+
   if (
     e === puzzDivArr[key1] ||
     e === puzzDivArr[key2] ||
@@ -93,8 +125,6 @@ function handleGameActions(evt) {
   checkSolved();
 }
 
-
-
 function checkSolved() {
   let solveCount = 0;
 
@@ -122,6 +152,7 @@ function checkSolved() {
 
   renderControls();
 }
+
 // color generation functions ------------------------------------------------
 // combines values into rgb matrix
 function getPuzzKey(level) {
@@ -312,10 +343,10 @@ function renderLevelSetUp() {
 }
 
 function renderControls() {
-  levelBtns.style.display = 'none';
-  let length = puzzDivArr.length + 5 ;
+  levelBtns.style.display = "none";
+  let length = puzzDivArr.length + 5;
   if (isSolved) {
-   colorBankDiv.style.display = 'none';
+    colorBankDiv.style.display = "none";
     emptyDivArr.forEach((div) => {
       div.style.visibility = "hidden";
     });
@@ -327,14 +358,14 @@ function renderControls() {
     });
 
     setTimeout(() => {
-      levelBtns.style.display = 'grid';
-    }, 75 * length )
+      levelBtns.style.display = "grid";
+    }, 75 * length);
   }
 
-
-
-isSolved ? msgDiv.innerText = `Congrats! You solved the puzzle in ${clickCount} clicks` : msgDiv.innerText = "Correctly place all color tiles to solve the puzzle"
-
+  isSolved
+    ? (msgDiv.innerText = `Congrats! You solved the puzzle in ${clickCount} clicks`)
+    : (msgDiv.innerText =
+        "Correctly place all color tiles to solve the puzzle");
 
   clickCountDiv.innerText = clickCount;
 }
