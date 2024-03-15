@@ -97,7 +97,12 @@ h3 {
     font-weight: bold;
     color: $dark-black;
     margin: 10px auto;
+    @extend .default-shadow;
+    cursor: pointer;
 
+    &:hover {
+        @extend .hover-shadow;
+    }
     
 }
 
@@ -114,7 +119,5 @@ h3 {
     background: #FD7352;
 }
 
-.level:hover {
-    box-shadow: inset -4px -4px 6px rgba(255,255,255,.5), inset 4px 4px 6px rgba(0,0,0,.5);
-}
+
 

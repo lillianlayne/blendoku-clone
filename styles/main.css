@@ -5,11 +5,11 @@
   flex-direction: column;
 }
 
-.default-shadow, .level-game {
+.default-shadow, .level, .level-game {
   box-shadow: inset 4px 4px 4px rgba(255, 255, 255, 0.5), inset -4px -4px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hover-shadow, .level-game:hover {
+.hover-shadow, .level:hover, .level-game:hover {
   box-shadow: inset -4px -4px 4px rgba(255, 255, 255, 0.5), inset 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -51,11 +51,11 @@ h1 {
   flex-direction: column;
 }
 
-.default-shadow, .level-game {
+.default-shadow, .level, .level-game {
   box-shadow: inset 4px 4px 4px rgba(255, 255, 255, 0.5), inset -4px -4px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hover-shadow, .level-game:hover {
+.hover-shadow, .level:hover, .level-game:hover {
   box-shadow: inset -4px -4px 4px rgba(255, 255, 255, 0.5), inset 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -236,6 +236,7 @@ nav {
   font-weight: 700;
   letter-spacing: 0.05em;
   border-radius: 500px;
+  cursor: pointer;
 }
 
 @keyframes grow-shrink {
@@ -256,11 +257,11 @@ nav {
   flex-direction: column;
 }
 
-.default-shadow, .level-game {
+.default-shadow, .level, .level-game {
   box-shadow: inset 4px 4px 4px rgba(255, 255, 255, 0.5), inset -4px -4px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hover-shadow, .level-game:hover {
+.hover-shadow, .level:hover, .level-game:hover {
   box-shadow: inset -4px -4px 4px rgba(255, 255, 255, 0.5), inset 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -390,8 +391,8 @@ h3 {
   font-weight: bold;
   color: #1c1917;
   margin: 10px auto;
+  cursor: pointer;
 }
-
 #l2 {
   background: #FFC543;
 }
@@ -406,10 +407,6 @@ h3 {
 
 #l5 {
   background: #FD7352;
-}
-
-.level:hover {
-  box-shadow: inset -4px -4px 6px rgba(255, 255, 255, 0.5), inset 4px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 * {

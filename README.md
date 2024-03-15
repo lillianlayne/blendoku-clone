@@ -5,6 +5,9 @@ Blendoku was released in 2013, but has been removed from the app store in the la
 
 This game was built as the unit 1 project for General Assembly's Software Engineering Immersive.
 
+## Play Game Here 
+[Blendoku Game](blendoku-clone.surge.sh)ß
+
 ## Wireframe
 ![Image](images/BlendokuWF.jpg)
 

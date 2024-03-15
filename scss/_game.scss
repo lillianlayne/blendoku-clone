@@ -148,7 +148,8 @@ width: 100%;
   font-weight: 700;
   letter-spacing: .05em;
   border-radius: 500px;
- @extend .default-shadow
+ @extend .default-shadow;
+ cursor: pointer;
 }
 
 .level-game:hover {
